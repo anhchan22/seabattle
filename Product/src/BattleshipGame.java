@@ -1,19 +1,24 @@
 import java.util.*;
 
 public class BattleshipGame {
-    private Grid player1;
-    private Grid player2;
+    private Grid player1Board;
+    private Grid player2Board;
+    private Grid player1BlindBoard;
+    private Grid player2BlindBoard;
+
     private Scanner scanner;
 
     public BattleshipGame() {
-        player1 = new Grid();
-        player2 = new Grid();
+        player1Board = new Grid();
+        player2Board = new Grid();
+        player1BlindBoard = new Grid("?");
+        player2BlindBoard = new Grid("?");
         scanner = new Scanner(System.in);
     }
 
 
     public void placeBoat(Boat boat, int player) {
-        Grid grid = (player == 1) ? player1 : player2;
+        Grid grid = (player == 1) ? player1Board : player2Board;
         boolean check = false;
         while (!check) {
             System.out.println(boat.getName() + " (Size: " + boat.getSize() + ")");
@@ -40,23 +45,44 @@ public class BattleshipGame {
     }
 
     public boolean shootAt(int player, int x, int y) {
-        Grid targetGrid = (player == 1) ? player2 : player1;
-        return targetGrid.shootAt(x, y);
+        Grid targetGrid = (player == 1) ? player2Board : player1Board;
+        if (targetGrid.shootAt(x, y) == true)
+        {
+            if (player == 1) player2BlindBoard.setBoard(x,y,"X");
+            if (player == 2) player1BlindBoard.setBoard(x,y,"X");
+            return true;
+        }
+        else
+        {
+            if (player == 1) player2BlindBoard.setBoard(x,y,"M");
+            if (player == 2) player1BlindBoard.setBoard(x,y,"M");
+            return false;
+        }
     }
 
     public void printBoard(int player) {
-        System.out.println("Bảng của người chơi " + player + ":");
-        Grid grid = (player == 1) ? player1 : player2;
+        System.out.println("Bảng cuar người chơi " + player + ":");
+        Grid grid = (player == 1) ? player1Board : player2Board;
+        grid.printBoard();
+    }
+
+    public void printBlindBoard(int player) {
+        if(player==1)
+        System.out.println("Bảng xương mù của người chơi 2:");
+        else System.out.println("Bảng xương mù của người chơi 1:");
+        Grid grid = (player == 1) ? player2BlindBoard : player1BlindBoard;
         grid.printBoard();
     }
 
     public boolean checkGameOver() {
-        if (player1.isGameOver()) {
-            System.out.println("Người chơi 2 chiến thắng!");
+        if (player1Board.isGameOver()) {
+            System.out.println("================================");
+            System.out.println("   Người chơi 2 chiến thắng!");
             return true;
         }
-        if (player2.isGameOver()) {
-            System.out.println("Người chơi 1 chiến thắng!");
+        if (player2Board.isGameOver()) {
+            System.out.println("================================");
+            System.out.println("   Người chơi 1 chiến thắng!");
             return true;
         }
         return false;

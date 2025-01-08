@@ -76,6 +76,7 @@ public class GameSystem {
             System.out.println("-------------------------------------------");
             System.out.println(" Người chơi " + number + " đến lượt bắn!");
             System.out.println("-------------------------------------------");
+            game.printBlindBoard(number);
 
             System.out.print("Nhập vị trí bắn: ");
             String idx = scanner.next().toUpperCase();
@@ -88,21 +89,19 @@ public class GameSystem {
                 System.out.println("Người chơi " + number + " bắn trúng!");
                 System.out.println("-----------------------------------");
 
-            } else {
+            }
+            else {
                 System.out.println("Người chơi " + number + " bắn trượt!");
                 System.out.println("-----------------------------------");
                 number = (number == 1) ? 2 : 1;
             }
 
             // In lại bảng sau khi bắn
-            if(number==1)
-            game.printBlindBoard(2);
-            else
-            game.printBoard(2);
-
+            game.printBoard(number);
             // Kiểm tra nếu một người thắng cuộc
             if (game.checkGameOver()) {
-                System.out.println("Hẹn gặp lại!");
+                System.out.println("   Hẹn gặp lại!");
+                System.out.println("================================");
                 break;
             }
         }

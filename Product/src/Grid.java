@@ -13,6 +13,7 @@ class Grid {
             System.out.println();
         }
     }
+
     public Grid() {
         this.boats = new ArrayList<>();
         this.board = new String[10][10];
@@ -20,6 +21,15 @@ class Grid {
             for (int j = 0; j < 10; j++) {
                 board[i][j] = ".";
             }
+        }
+    }
+
+    public Grid(String s) {
+        this.boats = new ArrayList<>();
+        this.board = new String[10][10];
+        for(int i = 0; i < 10; i++)
+        {
+            for(int j = 0; j < 10; j++) board[i][j] = s;
         }
     }
 
@@ -75,6 +85,10 @@ class Grid {
         return hit;
     }
 
+    public void setBoard(int x, int y, String s){
+        board[x][y] = s;
+    }
+
     public boolean isGameOver() {
         return boats.isEmpty();
     }
@@ -89,15 +103,7 @@ class Grid {
             System.out.println();
         }
     }
-    public void printBlindBoard(){
-        System.out.println("  1 2 3 4 5 6 7 8 9 10");
-        for(int i = 0; i < 10; i++){
-            System.out.print((char)('A' + i) + " ");
-            for (int j = 0; j < 10; j++) {
-                System.out.println();
-            }
-        }
-    }
+
 
 //    public List<Boat> getBoats() {
 //        return boats;
