@@ -6,8 +6,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         while(true) {
             GameSystem game = new GameSystem();
-            System.out.println("1. Bắt đầu trò chơi mới");
-            System.out.println("2. Thoát");
+            System.out.println("=============================");
+            System.out.println("  1. Bắt đầu trò chơi mới");
+            System.out.println("  2. Thoát");
+            System.out.println("=============================");
+
             int choice = sc.nextInt();
             switch (choice){
                 case 1:

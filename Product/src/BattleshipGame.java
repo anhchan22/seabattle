@@ -32,9 +32,9 @@ public class BattleshipGame {
 
             check = grid.addBoat(boat, x, y, direction.equals("H"));
             if (check) {
-                System.out.println(boat.getName() + " đã được đặt thành công!");
+                System.out.println(boat.getName() + " đã được đặt thành công!\n");
             } else {
-                System.out.println("Vị trí không hợp lệ, thử lại!");
+                System.out.println("Vị trí không hợp lệ, thử lại!\n");
             }
         }
     }
@@ -45,7 +45,7 @@ public class BattleshipGame {
     }
 
     public void printBoard(int player) {
-        System.out.println("Player " + player + "'s Board:");
+        System.out.println("Bảng của người chơi " + player + ":");
         Grid grid = (player == 1) ? player1 : player2;
         grid.printBoard();
     }

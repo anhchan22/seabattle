@@ -7,8 +7,15 @@ public class GameSystem {
     private List<Boat> player2Boats = new ArrayList<>();
 
     public void GameSystem() {
-        System.out.println("Welcome to SeaBattle!");
-        grid.printEmptyBoard();
+        System.out.println("=============================");
+        System.out.println("  Welcome to SeaBattle!");
+        System.out.printf("  Nhập tên người chơi 1: ");
+        String name1 = scanner.nextLine();
+        System.out.printf("  Nhập tên người chơi 2: ");
+        String name2 = scanner.nextLine();
+        System.out.println("=============================");
+
+
 
         Boat battleship = new Battleship();
         Boat destroyer = new Destroyer();
@@ -18,7 +25,11 @@ public class GameSystem {
 
 
         // Người chơi 1 đặt các tàu
-        System.out.println("Người chơi 1 đặt tàu");
+        System.out.println("-----------------------------------");
+        System.out.println(" Người chơi " + name1 + " đặt tàu: ");
+        System.out.println("-----------------------------------");
+        grid.printEmptyBoard();
+
         game.placeBoat(battleship, 1);
         player1Boats.add(battleship);
         game.printBoard(1);
@@ -36,7 +47,13 @@ public class GameSystem {
         game.printBoard(1);
 
         // Người chơi 2 đặt các tàu
-        System.out.println("Người chơi 2 đặt tàu");
+
+
+        System.out.println("-----------------------------------");
+        System.out.println(" Người chơi " + name2 +" đặt tàu: ");
+        System.out.println("-----------------------------------");
+        grid.printEmptyBoard();
+
         game.placeBoat(battleship, 2);
         player2Boats.add(battleship);
         game.printBoard(2);
@@ -56,7 +73,10 @@ public class GameSystem {
         // Vòng lặp trò chơi
         int number = 1;
         while (true) {
-            System.out.println("\nNgười chơi " + number + " đến lượt bắn!");
+            System.out.println("-------------------------------------------");
+            System.out.println(" Người chơi " + number + " đến lượt bắn!");
+            System.out.println("-------------------------------------------");
+
             System.out.print("Nhập vị trí bắn: ");
             String idx = scanner.next().toUpperCase();
 
@@ -65,14 +85,19 @@ public class GameSystem {
 
             boolean hit = game.shootAt(number, x, y);
             if (hit) {
-                System.out.println("Người chơi " + number + " bắn trúng!\n");
+                System.out.println("Người chơi " + number + " bắn trúng!");
+                System.out.println("-----------------------------------");
+
             } else {
-                System.out.println("Người chơi " + number + " bắn trượt!\n");
+                System.out.println("Người chơi " + number + " bắn trượt!");
+                System.out.println("-----------------------------------");
                 number = (number == 1) ? 2 : 1;
             }
 
             // In lại bảng sau khi bắn
-            game.printBoard(1);
+            if(number==1)
+            game.printBlindBoard(2);
+            else
             game.printBoard(2);
 
             // Kiểm tra nếu một người thắng cuộc
